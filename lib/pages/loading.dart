@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worldtime_azzam/services/world_time.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'dart:async';
 
 class Loading extends StatefulWidget {
   @override
@@ -13,10 +14,14 @@ class _LoadingState extends State<Loading> {
 
 
   void setUpWorldTime() async {
+
+    
+
     WorldTime instance = WorldTime(location: 'London',flag: 'uk.png',url: 'Europe/London'); 
     await instance.getTime();  
 
-    //pushReplacementNamed will switch to home page 
+    Timer(Duration(seconds: 15), () {
+      //pushReplacementNamed will switch to home page 
     //without making the loading page runs underneath it
     Navigator.pushReplacementNamed(
       context, 
@@ -28,6 +33,8 @@ class _LoadingState extends State<Loading> {
         'time': instance.time,
         'isDayTime': instance.isDayTime,
       });
+    });
+    
   }
 
   @override
